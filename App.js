@@ -71,7 +71,11 @@ const App = () => {
   }
 
   const handleDelete = (key) => {
-    console.log(key)
+    firebase.database().ref('tasks').child(user).child(key).remove()
+    .then(() => {
+      const findTasks = tasks.filter(task => task.key != key);
+      setTasks(findTasks);
+    })
   }
 
   const handleEdit = (data) => {
